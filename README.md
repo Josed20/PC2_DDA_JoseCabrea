@@ -18,3 +18,9 @@ Las instrucciones de la práctica están en el enunciado de la PC02.
 - **Health check:** https://pc2-dda-josecabrea.onrender.com/health → `{"status":"ok"}`
 
 El plan gratuito de Render suspende el servicio tras un periodo de inactividad; la primera petición puede tardar unos segundos mientras se reactiva.
+
+### Evidencia
+
+Despliegue exitoso en Render (servicio *live* y logs JSON de cada petición):
+
+![Despliegue en Render](evidencia/render-deploy-live.png)
