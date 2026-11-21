@@ -14,11 +14,23 @@ if (estado !== 'exito' && estado !== 'error') {
 }
 
 const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8'))
-const etiqueta = estado === 'exito' ? 'ÉXITO' : 'ERROR'
-const fecha = new Date().toISOString()
-const alumno = process.env.ALUMNO ? ` | Alumno: ${process.env.ALUMNO}` : ''
-const infoDetalle = detalle ? ` | Detalle: ${detalle}` : ''
-const text = `[${etiqueta}] ${pkg.name} v${pkg.version}${alumno}${infoDetalle} | Fecha: ${fecha}`
+const encabezado = estado === 'exito'
+  ? ':white_check_mark: ÉXITO: las pruebas pasaron'
+  : ':x: ERROR: las pruebas fallaron'
+const fecha = new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' })
+
+const lineas = [
+  encabezado,
+  `Proyecto: ${pkg.name} v${pkg.version}`,
+  `Detalle: ${detalle || 'sin detalle'}`,
+  `Fecha: ${fecha}`
+]
+
+if (process.env.ALUMNO) {
+  lineas.push(`Alumno: ${process.env.ALUMNO}`)
+}
+
+const text = lineas.join('\n')
 
 try {
   const res = await fetch(webhookUrl, {
@@ -30,7 +42,7 @@ try {
     console.error(`Error al notificar a Slack: HTTP ${res.status}`)
     process.exit(1)
   }
-  console.log(`Notificación enviada: ${etiqueta}`)
+  console.log(`Notificación enviada: ${estado === 'exito' ? 'ÉXITO' : 'ERROR'}`)
 } catch (err) {
   console.error(`Error de conexión con Slack: ${err.message}`)
   process.exit(1)
