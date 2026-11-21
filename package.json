@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "test": "node --test",
-    "test:cov": "node --test --experimental-test-coverage"
+    "test:cov": "node --test --experimental-test-coverage",
+    "pipeline": "node -e \"import('node:child_process').then(({spawnSync})=>{const r=spawnSync('npm',['test'],{stdio:'inherit',shell:true});const estado=r.status===0?'exito':'error';const n=spawnSync('node',['notificar.mjs',estado],{stdio:'inherit',shell:true});process.exit(r.status!==0?r.status:(n.status??0));})\""
   },
   "license": "UNLICENSED"
 }

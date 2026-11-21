@@ -1,6 +1,6 @@
 const test = require('node:test')
 const assert = require('node:assert/strict')
-const { subtotal, calcularTotal } = require('../src/precios')
+const { validarCantidad, subtotal, calcularTotal } = require('../src/precios')
 
 const items = [
   { precio: 8.5, cantidad: 2 },
@@ -25,4 +25,10 @@ test('el cupón se reconoce en minúsculas', () => {
 
 test('un cupón inexistente se ignora', () => {
   assert.equal(calcularTotal(items, 'NOEXISTE'), 22.42)
+})
+
+test('validarCantidad rechaza cantidades inválidas como 0 y 1.5', () => {
+  assert.throws(() => validarCantidad(0), /entero mayor que cero/)
+  assert.throws(() => validarCantidad(-2), /entero mayor que cero/)
+  assert.throws(() => validarCantidad(1.5), /entero mayor que cero/)
 })
