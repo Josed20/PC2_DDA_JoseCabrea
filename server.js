@@ -27,7 +27,7 @@ const servidor = http.createServer((req, res) => {
     }))
   })
 
-  if (url.pathname === '/health') return responder(res, 200, { status: 'ok' })
+  if (url.pathname === '/' || url.pathname === '/health') return responder(res, 200, { status: 'ok' })
 
   if (url.pathname === '/ready') {
     if (process.env.BASE_DE_DATOS_OK === 'false') {
