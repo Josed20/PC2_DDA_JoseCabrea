@@ -1,5 +1,7 @@
 # tienda-api (PC02 - Despliegue de Aplicaciones)
 
+**🚀 Desplegado en Render:** [https://pc2-dda-josecabrea.onrender.com](https://pc2-dda-josecabrea.onrender.com) · [/health](https://pc2-dda-josecabrea.onrender.com/health)
+
 API de ejemplo sin dependencias. Requiere Node.js 20 o superior.
 
     npm test            # ejecuta las pruebas
